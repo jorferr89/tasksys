@@ -10,7 +10,7 @@ class Empleado(models.Model):
     rol = models.ForeignKey(Rol, models.DO_NOTHING, verbose_name='Rol')
 
     def __str__(self):
-        return self.apellidos, self.nombres, self.dni
+        return self.apellidos
 
     class Meta:
         db_table = 'empleados'

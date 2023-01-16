@@ -13,7 +13,7 @@ class Proyecto(models.Model):
     empleado = models.ForeignKey(Empleado, models.DO_NOTHING, verbose_name='Empleado')
 
     def __str__(self):
-        return self.nombre, self.descripcion, self.fecha_limite, self.prioridad, self.empleado
+        return self.nombre
 
     class Meta:
         db_table = 'proyectos'
