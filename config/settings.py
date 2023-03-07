@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'apps.parametros', 
     'apps.empleados',
     'apps.proyectos', 
+
+    # Autenticacion
+    'apps.autenticacion',
 ]
 
 MIDDLEWARE = [
