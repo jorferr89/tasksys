@@ -1,29 +1,23 @@
-from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView, LogoutView
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from django.views.generic import FormView, RedirectView
-import config.settings as setting
-
-
-class LoginFormView(LoginView):
-    template_name = 'login.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect(setting.LOGIN_REDIRECT_URL)
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Iniciar sesión'
-        return context
-
-class LogoutRedirectView(RedirectView):
-    pattern_name = 'login'
-
-    def dispatch(self, request, *args, **kwargs):
-        logout(request)
-        return super().dispatch(request, *args, **kwargs)
+from django.shortcuts import render, redirect, reverse
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+ 
+# Views
+@login_required
+def home(request):
+    return render(request, "registration/success.html", {})
+ 
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username = username, password = password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
