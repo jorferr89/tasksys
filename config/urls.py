@@ -20,7 +20,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('apps.autenticacion.urls')),
-    # Video https://www.youtube.com/watch?v=CTrVDi3tt8o min 13:05
-    path('empleados/', include('django.contrib.auth.urls')),
-    path('empleados/', include('apps.empleados.urls')),
 ]
