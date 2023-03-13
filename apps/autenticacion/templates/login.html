@@ -1,7 +1,17 @@
 {% extends "base/base.html" %}
-{% block title %} Gestión de Tareas - {{ title }} {% endblock %}
+
 {% block body %}
 
-<h1>Login</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        <label for="lusuario">Usuario:</label><br>
+        <input type="text" id="usuario" name="usuario"><br>
+        <label for="lpassword">Contraseña:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <button type="submit">
+            Iniciar sesión
+        </button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
 
 {% endblock %}
